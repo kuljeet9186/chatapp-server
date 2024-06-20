@@ -1,6 +1,7 @@
 const corsOptions = {
   origin: [
     'https://chat-sphere-k82hq4o1j-kuljeets-projects.vercel.app',
+    'https://chat-sphere-three.vercel.app/',
     "http://localhost:5173",
     "https://chatapp-server-1gne.onrender.com",
     "http://localhost:4173",
