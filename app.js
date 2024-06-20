@@ -6,7 +6,8 @@ import cookieParser from "cookie-parser";
 import { Server } from "socket.io";
 import { createServer } from "http";
 import { v4 as uuid } from "uuid";
-import cors from "cors";
+// Remove the CORS import
+// import cors from "cors";
 import { v2 as cloudinary } from "cloudinary";
 import {
   CHAT_JOINED,
@@ -19,7 +20,8 @@ import {
 } from "./constants/events.js";
 import { getSockets } from "./lib/helper.js";
 import { Message } from "./models/message.js";
-import { corsOptions } from "./constants/config.js";
+// Remove the CORS options import
+// import { corsOptions } from "./constants/config.js";
 import { socketAuthenticator } from "./middlewares/auth.js";
 
 import userRoute from "./routes/user.js";
@@ -31,7 +33,7 @@ dotenv.config({
 });
 
 const mongoURI = process.env.MONGO_URI;
-const port = process.env.PORT || 3000;
+const port = process.env.PORT;
 const envMode = process.env.NODE_ENV.trim() || "PRODUCTION";
 const adminSecretKey = process.env.ADMIN_SECRET_KEY || "adsasdsdfsdfsdfd";
 const userSocketIDs = new Map();
@@ -48,7 +50,8 @@ cloudinary.config({
 const app = express();
 const server = createServer(app);
 const io = new Server(server, {
-  cors: corsOptions,
+  // Remove CORS options from socket.io configuration
+  // cors: corsOptions,
 });
 
 app.set("io", io);
@@ -56,7 +59,8 @@ app.set("io", io);
 // Using Middlewares Here
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors(corsOptions));
+// Remove the CORS middleware usage
+// app.use(cors(corsOptions));
 
 app.use("/api/v1/user", userRoute);
 app.use("/api/v1/chat", chatRoute);
