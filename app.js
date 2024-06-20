@@ -48,7 +48,17 @@ const app = express();
 const server = createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: 'https://chat-sphere-k82hq4o1j-kuljeets-projects.vercel.app', // your front-end URL
+    origin: (origin, callback) => {
+      const allowedOrigins = [
+        'https://chat-sphere-three.vercel.app',
+        'https://chat-sphere-k82hq4o1j-kuljeets-projects.vercel.app',
+      ];
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true, // allow credentials
@@ -63,7 +73,17 @@ app.use(cookieParser());
 
 // Use CORS middleware with options
 app.use(cors({
-  origin: 'https://chat-sphere-k82hq4o1j-kuljeets-projects.vercel.app', // your front-end URL
+  origin: (origin, callback) => {
+    const allowedOrigins = [
+      'https://chat-sphere-three.vercel.app',
+      'https://chat-sphere-k82hq4o1j-kuljeets-projects.vercel.app',
+    ];
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true, // allow credentials
